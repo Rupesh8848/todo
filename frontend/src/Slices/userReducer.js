@@ -1,7 +1,9 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { BaseUrl } from "../BaseUrl";
+
+export const userLoggedInRedirect = createAction("user/logged-in");
 
 export const userSignUp = createAsyncThunk(
   "user/register",
@@ -26,6 +28,7 @@ export const userSignIn = createAsyncThunk(
     try {
       const response = await axios.post(`${BaseUrl}/user/signin`, formData);
       localStorage.setItem("userData", JSON.stringify(response?.data));
+      dispatch(userLoggedInRedirect());
       return response?.data;
     } catch (error) {
       if (!error?.response) {
@@ -38,16 +41,24 @@ export const userSignIn = createAsyncThunk(
 
 export const userLogOut = createAsyncThunk(
   "user/log-out",
-  ({ rejectWithValue, getState, dispatch }) => {
-    const navigate = useNavigate();
-    localStorage.removeItem("userData");
-    navigate("/signin");
+  async (payload, { rejectWithValue, getState, dispatch }) => {
+    try {
+      localStorage.removeItem("userData");
+      return;
+    } catch (error) {
+      if (!error?.response) {
+        throw error;
+      }
+      return rejectWithValue(error?.response?.data);
+    }
   }
 );
 
+const userDataFromLocalStorage = JSON.parse(localStorage.getItem("userData"));
+
 const userSlice = createSlice({
   name: "User",
-  initialState: {},
+  initialState: { userData: userDataFromLocalStorage },
   extraReducers: (builder) => {
     builder
       .addCase(userSignUp.pending, (state, action) => {
@@ -58,6 +69,7 @@ const userSlice = createSlice({
         state.userData = action.payload;
         state.appErr = undefined;
         state.serveErr = undefined;
+        state.userLoggedIn = false;
       })
       .addCase(userSignUp.rejected, (state, action) => {
         state.loading = false;
@@ -72,6 +84,7 @@ const userSlice = createSlice({
         state.userData = action.payload;
         state.appErr = undefined;
         state.serveErr = undefined;
+        state.userLoggedIn = false;
       })
       .addCase(userSignIn.rejected, (state, action) => {
         state.loading = false;
@@ -83,7 +96,7 @@ const userSlice = createSlice({
       })
       .addCase(userLogOut.fulfilled, (state, action) => {
         state.loading = false;
-        state.userData = null;
+        state.userData = undefined;
         state.appErr = undefined;
         state.serveErr = undefined;
       })
@@ -91,6 +104,9 @@ const userSlice = createSlice({
         state.loading = false;
         state.appErr = action?.payload?.message;
         state.serveErr = action?.error?.message;
+      })
+      .addCase(userLoggedInRedirect, (state, action) => {
+        state.userLoggedIn = true;
       });
   },
 });

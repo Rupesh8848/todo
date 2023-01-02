@@ -13,10 +13,10 @@ export default function ProtectedNavbar() {
             <Link to="/">Home</Link>
           </li>
           <li className="mr-10">
-            <Link to={""}>Add Todo</Link>
+            <Link to={"addTodo"}>Add Todo</Link>
           </li>
-          <li>
-            <span onClick={() => dispatch(userLogOut())}>LogOut</span>
+          <li onClick={() => dispatch(userLogOut())}>
+            <span>LogOut</span>
           </li>
         </ul>
       </div>

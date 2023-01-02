@@ -4,6 +4,7 @@ import ProtectedNavbar from "./ProtectedNavbar";
 import PublicNavbar from "./PublicNavbar";
 
 export default function Navbar() {
-  const { userName } = useSelector((state) => state.user);
-  return <>{!userName ? <PublicNavbar /> : <ProtectedNavbar />}</>;
+  const { userData } = useSelector((state) => state?.user);
+  console.log(userData);
+  return <>{!userData ? <PublicNavbar /> : <ProtectedNavbar />}</>;
 }

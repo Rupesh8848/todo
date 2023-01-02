@@ -1,0 +1,29 @@
+.addTodo-section {
+  width: 100%;
+  height: 100vh;
+  background-color: rebeccapurple;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 0 10rem; */
+}
+
+.main-container {
+  width: 70vw;
+}
+
+.container-titles {
+}
+
+.add-title-input-button {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.add-title-button {
+  background-color: cadetblue;
+  padding: 0.5rem 1rem;
+  margin-left: 10px;
+  border-radius: 10px;
+}

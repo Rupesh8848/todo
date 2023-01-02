@@ -1,10 +1,12 @@
 import React from "react";
 import InputField from "../components/InputField";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userSignUp } from "../Slices/userReducer";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = React.useState({
     firstName: "",
     lastName: "",
@@ -24,6 +26,11 @@ export default function SignUp() {
     event.preventDefault();
     dispatch(userSignUp(formData));
   };
+
+  const { userLoggedIn } = useSelector((state) => state?.user);
+  if (userLoggedIn) {
+    navigate("/");
+  }
 
   return (
     <div className="flex items-center justify-center h-screen bg-slate-700">
