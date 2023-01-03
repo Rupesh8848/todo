@@ -28,4 +28,23 @@ const getContainerTitles = async (req, res) => {
   }
 };
 
-module.exports = { createContainer, getContainerTitles };
+const deleteContainer = async (req, res) => {
+  const { id } = req.params;
+  const container = await Container.findById(id);
+  console.log(container);
+  if (!container) {
+    return res.json("Cotainer doesn't exists");
+  }
+  if (req?.user?.id == container?.user) {
+    try {
+      const response = await Container.findByIdAndDelete(id);
+      return res.json(response.data);
+    } catch (error) {
+      return res.json(error);
+    }
+  } else {
+    return res.json("User not authorized.");
+  }
+};
+
+module.exports = { createContainer, getContainerTitles, deleteContainer };

@@ -1,4 +1,4 @@
-.container-card {
+.todo-card {
   height: 4rem;
   width: 100%;
   display: flex;
@@ -11,25 +11,25 @@
   transition: all 200ms;
 }
 
-.container-card:hover {
+.todo-card:hover {
   scale: 1.1;
   box-shadow: 5px 5px 10px grey;
   cursor: pointer;
 }
 
-.container-trash-icon {
+.todo-trash-icon {
   display: none;
   padding: 10px;
-  transition: scale 300ms;
+  transition: scale 200ms;
 }
 
-.container-trash-icon:hover {
+.todo-trash-icon:hover {
   border-radius: 100%;
   scale: 1.5;
   cursor: pointer;
 }
 
-.container-card:hover .container-trash-icon {
+.todo-card:hover .todo-trash-icon {
   display: block;
 }
 

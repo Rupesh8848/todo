@@ -8,11 +8,22 @@
   /* padding: 0 10rem; */
 }
 
+.add-title-input-button {
+  margin-bottom: 10px;
+}
+
 .main-container {
+  display: grid;
+  column-gap: 10px;
   width: 70vw;
+  grid-column: 1/4;
+  grid-template-columns: auto auto;
+  height: 70vh;
 }
 
 .container-titles {
+  grid-column: 1/2;
+  padding: 0 2rem;
 }
 
 .add-title-input-button {
@@ -26,4 +37,19 @@
   padding: 0.5rem 1rem;
   margin-left: 10px;
   border-radius: 10px;
+}
+
+.add-todo-input {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.container-todos {
+  grid-column: 2/4;
+  padding: 0 2rem;
+  /* overflow-x: auto; */
+  overflow-y: scroll;
+}
+
+.todos-list {
 }

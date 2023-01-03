@@ -54,9 +54,38 @@ export const getAllContainerTitle = createAsyncThunk(
   }
 );
 
+export const deleteContainer = createAsyncThunk(
+  "container/delete",
+  async (payload, { rejectWithValue, getState, dispatch }) => {
+    const { userData } = getState()?.user;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userData.token}`,
+      },
+    };
+    try {
+      const response = await axios.delete(
+        `${BaseUrl}/container/${payload}`,
+        config
+      );
+      return response.data;
+    } catch (error) {
+      if (!error?.response) {
+        throw error;
+      }
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
 const containerSlice = createSlice({
   name: "ContainerSlice",
   initialState: {},
+  reducers: {
+    selected: (state, action) => {
+      state.selectedContainer = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(createContainer.pending, (state, action) => {
@@ -84,8 +113,22 @@ const containerSlice = createSlice({
         state.loading = false;
         state.appErr = action?.payload?.message;
         state.serveErr = action?.error?.message;
+      })
+      .addCase(deleteContainer.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(deleteContainer.fulfilled, (state, action) => {
+        state.loading = false;
+        state.deletedContainer = action.payload;
+        state.error = undefined;
+      })
+      .addCase(deleteContainer.rejected, (state, action) => {
+        state.loading = false;
+        state.appErr = action?.payload?.message;
+        state.serveErr = action?.error?.message;
       });
   },
 });
 
 export default containerSlice.reducer;
+export const { selected } = containerSlice.actions;
