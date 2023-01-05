@@ -1,0 +1,72 @@
+.home-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #c9edff;
+  padding: 0 10rem;
+}
+
+.hero-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-text {
+  overflow: hidden;
+  font-size: 6rem;
+  font-weight: bold;
+  margin-right: 2.5rem;
+  color: rgb(0, 0, 0);
+}
+
+.hero-text span {
+  display: inline-block;
+}
+
+.hero-img {
+  height: 90vh;
+  width: fit-content;
+  opacity: 0.8;
+}
+
+.img-container {
+  overflow: hidden;
+}
+
+.hero-line {
+  display: flex;
+}
+
+.hero-button {
+  height: 4rem;
+  width: 8rem;
+  margin-right: 2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  transition: all 300ms;
+}
+
+.hero-login {
+  background-color: coral;
+}
+
+.hero-signup {
+  background-color: tomato;
+}
+
+.hero-button:hover {
+  border-radius: 20px;
+  color: coral;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.hero-buttons {
+  display: flex;
+}
+.hero-button-each {
+  overflow: hidden;
+}

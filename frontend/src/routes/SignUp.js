@@ -2,7 +2,7 @@ import React from "react";
 import InputField from "../components/InputField";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignUp } from "../Slices/userReducer";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ export default function SignUp() {
   }
 
   return (
-    <div className="flex items-center justify-center h-screen bg-slate-700">
+    <div className="flex items-center justify-center h-screen bg-[#c9edff]">
       <div className="bg-orange-500 px-20 py-10 rounded-lg">
         <form>
           <h2 className="text-2xl font-bold">SignUp</h2>
@@ -65,6 +65,13 @@ export default function SignUp() {
             onChange={handleChange}
             placeholder="Password"
           />
+          <p className="mt-[10px]">
+            Already have an account?
+            <Link to="/signin">
+              <span className="text-[#51bcf5] font-bold"> Sign In </span>
+            </Link>
+            instead?
+          </p>
           <button
             type="button"
             onClick={handleSubmit}

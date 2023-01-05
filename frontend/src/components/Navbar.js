@@ -5,8 +5,10 @@ import PublicNavbar from "./PublicNavbar";
 
 export default function Navbar() {
   const { userData } = useSelector((state) => state?.user);
-  console.log(userData);
+  // console.log(userData);
   return (
-    <>{!userData?.userLoggedIn ? <PublicNavbar /> : <ProtectedNavbar />}</>
+    <div className="navbar-container">
+      {!userData?.token ? <PublicNavbar /> : <ProtectedNavbar />}
+    </div>
   );
 }
